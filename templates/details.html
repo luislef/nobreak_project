@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UPS Details</title>
+    <style>
+        /* Basic reset and styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e9ecef;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Heading styling */
+        h1 {
+            color: #4CAF50;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        /* Main details box */
+        .details-box {
+            width: 90%;
+            max-width: 800px;
+            background-color: #ffffff;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        /* Labels for sections */
+        .label {
+            font-weight: bold;
+            color: #4CAF50;
+            margin: 15px 0 10px;
+            font-size: 1.1em;
+        }
+
+        /* Paragraph styling for data */
+        p {
+            margin: 5px 0;
+            color: #333;
+            line-height: 1.5;
+        }
+
+        /* Highlight critical data */
+        .highlight {
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>UPS Details for IP: {{ ip }}</h1>
+
+    <div class="details-box">
+        <!-- Input Information Section -->
+        <div class="label">Input Information</div>
+        <p><span class="highlight">Input Voltage:</span> {{ data['inputInfo']['inputVoltage'] | default('N/A') }}</p>
+        <p><span class="highlight">Input Frequency:</span> {{ data['inputInfo']['inputFrequency'] | default('N/A') }}</p>
+        <p><span class="highlight">Input Phase:</span> {{ data['inputInfo']['inputPhase'] | default('N/A') }}</p>
+
+        <!-- Output Information Section -->
+        <div class="label">Output Information</div>
+        <p><span class="highlight">Output Voltage:</span> {{ data['outputInfo']['Tensão'] | default('N/A') }}</p>
+        <p><span class="highlight">Output Frequency:</span> {{ data['outputInfo']['Frequência'] | default('N/A') }}</p>
+        <p><span class="highlight">Current:</span> {{ data['outputInfo']['Corrente'] | default('N/A') }}</p>
+        <p><span class="highlight">Active Power:</span> {{ data['outputInfo']['Potência ativa'] | default('N/A') }}</p>
+        <p><span class="highlight">Apparent Power:</span> {{ data['outputInfo']['Potência aparente'] | default('N/A') }}</p>
+        <p><span class="highlight">Load:</span> {{ data['outputInfo']['Carga'] | default('N/A') }}</p>
+        <p><span class="highlight">Power Factor:</span> {{ data['outputInfo']['FP da Carga'] | default('N/A') }}</p>
+
+        <!-- Additional Information Section (if applicable) -->
+        <div class="label">Additional Information</div>
+        <p><span class="highlight">Temperature:</span> {{ data['otherInfo']['temperature'] | default('N/A') }}</p>
+    </div>
+</body>
+</html>
