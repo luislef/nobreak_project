@@ -1,0 +1,70 @@
+<head>
+  <title>MiEnergy</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="" />
+  <meta name="keywords" content="" />
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+
+  <div id="wrapper">
+    <!-- O JAVASCRIPT IRÁ INSERIR AQUI O CABEÇALHO PADRÃO -->
+  </div>
+
+  <div id="banner"></div>
+  <div id="page" class="container">
+    <div id="content">
+      <div class="title">
+        <img src="eztron.png" class="center">
+      </div>
+      <p>
+        Endereço Mac: <span id="mac_address"></span><br>
+        Versão do firmware: <span id="versao_firmware"></span><br>
+    </div>
+  </div>
+
+  <div id="footer-wrapper">
+    <div id="footer" class="container">
+      <div id="box1">
+        <div class="title">
+          <h4>Tecnologia que cresce na medida certa</h4>
+          <h5>Designed by <a href="/sobre">Minipa do Brasil e Eztron</a></h5>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div id="copyright" class="container">
+    <p>&copy; Eztron & Minipa do Brasil.</p>
+    <p>All rights reserved.</p>
+  </div>
+
+  <script src="script.js"></script>
+
+  <script>
+    setPages();
+  </script>
+
+  <script>
+    getData();
+
+    function getData() {
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          setValueElements(JSON.parse(this.responseText));
+        }
+      };
+      xhttp.open("GET", "/version", true);
+      xhttp.send();
+    }
+
+    function setValueElements(arr) {
+      document.getElementById("versao_firmware").innerHTML = arr.versao_firmware;
+      document.getElementById("mac_address").innerHTML = arr.mac_address;
+    }
+  </script>
+</body>
+</html>

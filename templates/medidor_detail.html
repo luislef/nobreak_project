@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ data.name }} - Medidor</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #e9ecef; margin: 0; }
+    .header {
+      background: #FF9800; color: white; padding: 15px 20px;
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;
+    }
+    .header a { color: white; text-decoration: none; background: rgba(255,255,255,0.2); padding: 8px 16px; border-radius: 5px; }
+    .container { max-width: 1000px; margin: 20px auto; padding: 0 20px 40px; }
+    .card {
+      background: white; border-radius: 8px; padding: 20px; margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .card h2 { margin-top: 0; color: #E65100; }
+    .meta { color: #666; font-size: 14px; margin-bottom: 15px; }
+    .error-box { background: #ffebee; color: #c62828; padding: 12px; border-radius: 6px; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { padding: 10px; text-align: left; border-bottom: 1px solid #eee; }
+    th { background: #fff3e0; color: #E65100; width: 40%; }
+    .external { display: inline-block; margin-top: 10px; color: #1976D2; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>{{ data.name }}</h1>
+    <a href="/medidores">← Voltar aos Medidores</a>
+  </div>
+  <div class="container">
+    <div class="card">
+      <h2>Informações</h2>
+      <p class="meta">
+        IP: <strong>{{ ip }}</strong> · Loja: <strong>{{ data.loja }}</strong> ·
+        Tipo: <strong>{{ data.device_type }}</strong> · Status: <strong>{{ data.status }}</strong>
+      </p>
+      {% if data.error %}
+      <div class="error-box">{{ data.error }}</div>
+      {% endif %}
+      {% if data.page_url %}
+      <a class="external" href="{{ data.page_url }}" target="_blank" rel="noopener">Abrir interface do medidor ↗</a>
+      {% endif %}
+    </div>
+
+    {% if data.summary %}
+    <div class="card">
+      <h2>Resumo</h2>
+      <table>
+        {% for key, value in data.summary.items() %}
+        <tr><th>{{ key }}</th><td>{{ value }}</td></tr>
+        {% endfor %}
+      </table>
+    </div>
+    {% endif %}
+
+    {% if data.leituras %}
+    <div class="card">
+      <h2>Grandezas</h2>
+      <table>
+        {% for key, value in data.leituras.items() %}
+        <tr><th>{{ key }}</th><td>{{ value }}</td></tr>
+        {% endfor %}
+      </table>
+    </div>
+    {% endif %}
+  </div>
+</body>
+</html>

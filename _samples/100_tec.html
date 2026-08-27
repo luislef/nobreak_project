@@ -1,0 +1,86 @@
+
+<html lang="pt-br">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Medidor de Energia WiFi</title>
+
+<link rel="shortcut icon" href="https://cdn.awsli.com.br/2560/2560424/favicon/logo-ie-f6f6d91227.png"/>  
+
+<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; " />
+
+<div class="box1"> <div class="logo"></div><div class="frase">IE Tecnologia</div> 
+</div>
+<div class="voltar">
+    <a style="color:#ffff;position:relative;top:16px;" href="/sistema.html">&nbsp;◄ Voltar</a>&nbsp;&nbsp;
+</div>
+<div class="box2"><div style="text-align: Center;color:#ffff;"> Grandezas Elétricas </div></div><br><br><br><br><br>
+<br>
+<p style="text-align: center;">&nbsp; <strong>Fase A</strong></p><br>
+<table id="tabela">
+    <tr><td align="left">Potência Ativa </td><td><span id="x_pa"></span>[W]<br></td></tr>
+    <tr><td align="left">Potência Reativa </td><td><span id="x_qa"></span>[VAr]<br></td></tr>
+    <tr><td align="left">Potência Aparente </td><td><span id="x_sa"></span>[VA]<br></td></tr>
+    <tr><td align="left">Tensão </td><td><span id="x_uarms"></span>[V]<br></td></tr>
+    <tr><td align="left">Corrente </td><td><span id="x_iarms"></span>[A]<br></td></tr>
+    <tr><td align="left">Fator de Potência </td><td><span id="x_pfa"></span><br></td></tr>
+    <tr><td align="left">Consumo </td><td><span id="x_epa_c"></span>[kWh]<br></td></tr>
+    <tr><td align="left">Geração </td><td><span id="x_epa_g"></span>[kWh]<br></td></tr>
+</table><br>
+<hr style="background-color: #d26464"><br>
+<p style="text-align: center;">&nbsp; <strong>Fase B</strong></p><br>
+<table id="tabela">
+    <tr><td align="left">Potência Ativa </td><td><span id="x_pb"></span>[W]<br></td></tr>
+    <tr><td align="left">Potência Reativa </td><td><span id="x_qb"></span>[VAr]<br></td></tr>
+    <tr><td align="left">Potência Aparente </td><td><span id="x_sb"></span>[VA]<br></td></tr>
+    <tr><td align="left">Tensão </td><td><span id="x_ubrms"></span>[V]<br></td></tr>
+    <tr><td align="left">Corrente </td><td><span id="x_ibrms"></span>[A]<br></td></tr>
+    <tr><td align="left">Fator de Potência </td><td><span id="x_pfb"></span><br></td></tr>
+    <tr><td align="left">Consumo </td><td><span id="x_epb_c"></span>[kWh]<br></td></tr>
+    <tr><td align="left">Geração </td><td><span id="x_epb_g"></span>[kWh]<br></td></tr>
+</table><br>
+<hr style="background-color: #d26464"><br>
+<p style="text-align: center;">&nbsp; <strong>Fase C</strong></p><br>
+<table id="tabela">
+    <tr><td align="left">Potência Ativa </td><td><span id="x_pc"></span>[W]<br></td></tr>
+    <tr><td align="left">Potência Reativa </td><td><span id="x_qc"></span>[VAr]<br></td></tr>
+    <tr><td align="left">Potência Aparente </td><td><span id="x_sc"></span>[VA]<br></td></tr>
+    <tr><td align="left">Tensão </td><td><span id="x_ucrms"></span>[V]<br></td></tr>
+    <tr><td align="left">Corrente </td><td><span id="x_icrms"></span>[A]<br></td></tr>
+    <tr><td align="left">Fator de Potência </td><td><span id="x_pfc"></span><br></td></tr>
+    <tr><td align="left">Consumo </td><td><span id="x_epc_c"></span>[kWh]<br></td></tr>
+    <tr><td align="left">Geração </td><td><span id="x_epc_g"></span>[kWh]<br></td></tr>
+</table><br>
+
+<hr style="background-color: #d26464"><br>
+<p style="text-align: center;">&nbsp; <strong>Total</strong></p><br>
+
+<table id="tabela">
+    <tr><td align="left">Potência Ativa </td><td><span id="x_pt"></span>[W]<br></td></tr>
+    <tr><td align="left">Potência Reativa </td><td><span id="x_qt"></span>[VAr]<br></td></tr>
+    <tr><td align="left">Potência Aparente </td><td><span id="x_st"></span>[VA]<br></td></tr>
+    <tr><td align="left">Fator de Potência </td><td><span id="x_pft"></span><br></td></tr>
+    <tr><td align="left">Frequência </td><td><span id="x_freq"></span>[Hz]<br></td></tr>
+    <tr><td align="left">Consumo </td><td><span id="x_ept_c"></span>[kWh]<br></td></tr>
+    <tr><td align="left">Geração </td><td><span id="x_ept_g"></span>[kWh]<br></td></tr>
+    <tr><td align="left">Temperatura </td><td><span id="x_TPSD"></span>[°C]<br></td></tr>
+</table><br>
+<div style="text-align: center;">
+    <script>
+        function GetState()
+        {
+            setValues("/sistema/tecnicavalores");
+        }
+        window.onload = function ()
+        {
+            load("style.css","css", function()
+            {
+                load("microajax.js","js", function()
+                {
+                    GetState();
+                });
+            });
+            setInterval(GetState, 1000);
+        }
+        function load(e,t,n){if("js"==t){var a=document.createElement("script");a.src=e,a.type="text/javascript",a.async=!1,a.onload=function(){n()},document.getElementsByTagName("head")[0].appendChild(a)}else if("css"==t){var a=document.createElement("link");a.href=e,a.rel="stylesheet",a.type="text/css",a.async=!1,a.onload=function(){n()},document.getElementsByTagName("head")[0].appendChild(a)}}
+    </script></div>
+    </html>

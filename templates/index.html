@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UPS Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #e9ecef;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    h1 {
+      color: #4CAF50;
+      margin: 20px 0;
+    }
+    .header-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin: 20px 0 10px;
+      position: relative;
+      width: 95%;
+      max-width: 1600px;
+    }
+    .header-row h1 {
+      margin: 0;
+    }
+    .gear-btn {
+      position: absolute;
+      right: 0;
+      background: #546e7a;
+      color: white;
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      font-size: 20px;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      transition: background 0.2s, transform 0.2s;
+    }
+    .gear-btn:hover {
+      background: #37474f;
+      transform: rotate(45deg);
+    }
+    .nav-links {
+      margin-bottom: 20px;
+    }
+    .nav-links a {
+      display: inline-block;
+      background-color: #2196F3;
+      color: white;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 5px;
+      margin-right: 10px;
+      transition: background-color 0.3s;
+    }
+    .nav-links a:hover {
+      background-color: #1976D2;
+    }
+    .container {
+      width: 95%;
+      max-width: 1600px;
+      margin: 10px auto;
+      padding: 20px;
+      background: white;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+    }
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      gap: 20px;
+    }
+    .status-box {
+      width: 140px;
+      height: 120px;
+      position: relative;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .status-box:hover {
+      transform: scale(1.05);
+    }
+    .status-box.green {
+      background-color: #4CAF50;
+    }
+    .status-box.yellow {
+      background-color: #FFD700;
+    }
+    .status-box.red {
+      background-color: #E53935;
+    }
+    .status-box.gray {
+      background-color: #B0BEC5;
+    }
+    .status-box span {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-weight: bold;
+      text-align: center;
+      line-height: 1;
+    }
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+    .modal {
+      background: white;
+      width: 92%;
+      max-width: 780px;
+      max-height: 85vh;
+      overflow: auto;
+      border-radius: 10px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+      padding: 20px 24px;
+    }
+    .modal h2 {
+      margin: 0 0 6px;
+      color: #37474f;
+    }
+    .modal .hint {
+      color: #607d8b;
+      font-size: 13px;
+      margin-bottom: 16px;
+    }
+    .config-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    .config-table th,
+    .config-table td {
+      border-bottom: 1px solid #eceff1;
+      padding: 8px 6px;
+      text-align: left;
+    }
+    .config-table th {
+      color: #546e7a;
+      font-weight: 600;
+    }
+    .config-table select {
+      padding: 4px 6px;
+      border-radius: 4px;
+      border: 1px solid #cfd8dc;
+    }
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 18px;
+    }
+    .modal-actions button {
+      border: none;
+      border-radius: 5px;
+      padding: 8px 16px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .btn-cancel {
+      background: #cfd8dc;
+      color: #37474f;
+    }
+    .btn-save {
+      background: #4CAF50;
+      color: white;
+    }
+    .btn-save:disabled {
+      opacity: 0.6;
+      cursor: wait;
+    }
+    .save-msg {
+      margin-top: 10px;
+      font-size: 13px;
+      color: #2e7d32;
+    }
+    .save-msg.error {
+      color: #c62828;
+    }
+  </style>
+</head>
+<body>
+  <div id="root" class="container">
+    <div class="header-row">
+      <h1>UPS Dashboard</h1>
+      <button type="button" class="gear-btn" id="open-config" title="Configuração dos nobreaks">⚙</button>
+    </div>
+    <div class="nav-links">
+      <a href="/medidores">⚡ Medidores de Energia</a>
+      <a href="/logs">📋 Logs de Eventos</a>
+    </div>
+    <div id="dashboard" class="dashboard-grid"></div>
+  </div>
+  <script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+  <script src="/static/home.js"></script>
+</body>
+</html>

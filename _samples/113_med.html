@@ -1,0 +1,211 @@
+<head>
+  <title>MiEnergy</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="" />
+  <meta name="keywords" content="" />
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+  <div id="wrapper">
+    <!-- O JAVASCRIPT IRÁ INSERIR AQUI O CABEÇALHO PADRÃO -->
+  </div>
+  <div id="banner"></div>
+  <div id="page" class="container">
+    <div id="content">
+      <div id="tabela-medicoes">
+             <table class="center">
+                  <tr>
+                    <th>Grandeza</th>
+                    <th>Fase A</th>
+                    <th>Fase B</th>
+                    <th>Fase C</th>
+                    <th>Neutro</th>
+                    <th>Total</th>
+                  </tr>
+                  <tr>
+                    <td>Tensão (Vrms)</td>
+                    <td id = "v_a">-</td>
+                    <td id = "v_b">-</td>
+                    <td id = "v_c">-</td>
+                    <td id = "v_n">-</td>
+                    <td>-</td>
+                  </tr>
+                  <tr>
+                    <td>Corrente (Arms)</td>
+                    <td id = "i_a">-</td>
+                    <td id = "i_b">-</td>
+                    <td id = "i_c">-</td>
+                    <td id = "i_n1">-</td>
+                    <td>-</td>
+                  </tr>
+                  <tr>
+                    <td>Energia Ativa Consumida (kWh)</td>
+                    <td id = "energia_ativa_a">-</td>
+                    <td id = "energia_ativa_b">-</td>
+                    <td id = "energia_ativa_c">-</td>
+                    <td>-</td>
+                    <td id = "energia_ativa_total">-</td>
+                  </tr>
+                  <tr>
+                    <td>Energia Ativa Fornecida (kWh)</td>
+                    <td id = "energia_ativa_fornecida_a">-</td>
+                    <td id = "energia_ativa_fornecida_b">-</td>
+                    <td id = "energia_ativa_fornecida_c">-</td>
+                    <td>-</td>
+                    <td id = "energia_ativa_fornecida_total">-</td>
+                  </tr>
+                  <tr>
+                    <td>Saldo de Energia Ativa (kWh)</td>
+                    <td id = "saldo_energia_ativa_a">-</td>
+                    <td id = "saldo_energia_ativa_b">-</td>
+                    <td id = "saldo_energia_ativa_c">-</td>
+                    <td>-</td>
+                    <td id = "saldo_energia_ativa_total">-</td>
+                  </tr>
+                  <tr>
+                    <td>Fator de Potência</td>
+                    <td id = "fp_a">-</td>
+                    <td id = "fp_b">-</td>
+                    <td id = "fp_c">-</td>
+                    <td>-</td>
+                    <td id = "fp_total">-</td>
+                  </tr>
+                  <tr>
+                    <td>Potência Ativa (W)</td>
+                    <td id = "p_a">-</td>
+                    <td id = "p_b">-</td>
+                    <td id = "p_c">-</td>
+                    <td>-</td>
+                    <td id = "p_total">-</td>
+                  </tr>
+                  <tr>
+                    <td>Potência Ativa Chip (W)</td>
+                    <td id = "p_a2">-</td>
+                    <td id = "p_b2">-</td>
+                    <td id = "p_c2">-</td>
+                    <td>-</td>
+                    <td id = "p_total2">-</td>
+                  </tr>
+                  <tr>
+                    <td>Potência Reativa (VAr)</td>
+                    <td id = "q_a">-</td>
+                    <td id = "q_b">-</td>
+                    <td id = "q_c">-</td>
+                    <td>-</td>
+                    <td id = "q_total">-</td>
+                  </tr>
+                  <tr>
+                    <td>Potência Reativa Chip (VAr)</td>
+                    <td id = "q_a2">-</td>
+                    <td id = "q_b2">-</td>
+                    <td id = "q_c2">-</td>
+                    <td>-</td>
+                    <td id = "q_total2">-</td>
+                  </tr>
+                  <tr>
+                    <td>Potência Aparente (VA)</td>
+                    <td id = "s_a">-</td>
+                    <td id = "s_b">-</td>
+                    <td id = "s_c">-</td>
+                    <td>-</td>
+                    <td id = "s_total">-</td>
+                  </tr>
+                  <tr>
+                    <td>Potência Aparente Chip (VA)</td>
+                    <td id = "s_a2">-</td>
+                    <td id = "s_b2">-</td>
+                    <td id = "s_c2">-</td>
+                    <td>-</td>
+                    <td id = "s_total2">-</td>
+                  </tr>
+                  <tr>
+                    <td>Frequência (Hz)</td>
+                    <td id = "frequencia_a">-</td>
+                    <td id = "frequencia_b">-</td>
+                    <td id = "frequencia_c">-</td>
+                    <td id = "frequencia_n">-</td>
+                    <td>-</td>
+                  </tr>
+
+                  <tr>
+                    <td>Energia Reativa Consumida (kVArh)</td>
+                    <td id = "energia_reativa_a">-</td>
+                    <td id = "energia_reativa_b">-</td>
+                    <td id = "energia_reativa_c">-</td>
+                    <td>-</td>
+                    <td id = "energia_reativa_total">-</td>
+                  </tr>
+                  <tr>
+                    <td>Energia Reativa Fornecida (kVArh)</td>
+                    <td id = "energia_reativa_fornecida_a">-</td>
+                    <td id = "energia_reativa_fornecida_b">-</td>
+                    <td id = "energia_reativa_fornecida_c">-</td>
+                    <td>-</td>
+                    <td id = "energia_reativa_fornecida_total">-</td>
+                  </tr>
+                  <tr>
+                    <td>Saldo de Energia Reativa (kVArh)</td>
+                    <td id = "saldo_energia_reativa_a">-</td>
+                    <td id = "saldo_energia_reativa_b">-</td>
+                    <td id = "saldo_energia_reativa_c">-</td>
+                    <td>-</td>
+                    <td id = "saldo_energia_reativa_total">-</td>
+                  </tr>
+                  <tr>
+                    <td>Energia Aparente (kVAh)</td>
+                    <td id = "energia_aparente_a">-</td>
+                    <td id = "energia_aparente_b">-</td>
+                    <td id = "energia_aparente_c">-</td>
+                    <td>-</td>
+                    <td id = "energia_aparente_total">-</td>
+                  </tr>
+                  <tr>
+                    <td>Ângulo de Carga (°)</td>
+                    <td id = "angulo_carga_a">-</td>
+                    <td id = "angulo_carga_b">-</td>
+                    <td id = "angulo_carga_c">-</td>
+                    <td>-</td>
+                    <td>-</td>
+                  </tr>
+                  <tr>
+                    <td>Ângulo entre as tensões (°)</td>
+                    <td id = "angulo_vava">-</td>
+                    <td id = "angulo_vbva">-</td>
+                    <td id = "angulo_vcva">-</td>
+                    <td>-</td>
+                    <td>-</td>
+                  </tr>
+              </table>
+      </div>
+  </div>
+</div>
+  
+
+<div id="footer-wrapper">
+  <div id="footer" class="container">
+    <div id="box1">
+            <div class="title">
+              <h4>Tecnologia que cresce na medida certa</h4>
+              <h5 >Designed by <a href="/sobre">Minipa do Brasil e Eztron</a></h5>
+            </div> 
+    </div>
+  </div>
+</div>
+<div id="copyright" class="container">
+  <p>&copy; Eztron & Minipa do Brasil.</p>
+    <p>All rights reserved.</p>
+</div>
+
+<script src="script.js"></script>
+<script>
+    setPages();
+    getData();
+    setInterval(function() {
+        getData(); 
+    }, 500); 
+</script>
+
+</body>
+</html>

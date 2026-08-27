@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Medidores de Energia</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #e9ecef;
+      margin: 0;
+      padding: 0;
+    }
+    .header {
+      background-color: #FF9800;
+      color: white;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .header h1 { margin: 0; font-size: 24px; }
+    .header-links { display: flex; gap: 10px; flex-wrap: wrap; }
+    .header a {
+      color: white;
+      text-decoration: none;
+      background-color: rgba(255,255,255,0.2);
+      padding: 8px 16px;
+      border-radius: 5px;
+    }
+    .header a:hover { background-color: rgba(255,255,255,0.35); }
+    .container {
+      width: 95%;
+      max-width: 1400px;
+      margin: 20px auto;
+      padding: 20px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    .hint {
+      color: #666;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+    }
+    .meter-card {
+      border-radius: 10px;
+      padding: 16px;
+      color: white;
+      cursor: pointer;
+      transition: transform 0.2s;
+      min-height: 140px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    }
+    .meter-card:hover { transform: scale(1.03); }
+    .meter-card.green { background: linear-gradient(135deg, #43A047, #2E7D32); }
+    .meter-card.yellow { background: linear-gradient(135deg, #FBC02D, #F9A825); color: #333; }
+    .meter-card.red { background: linear-gradient(135deg, #E53935, #C62828); }
+    .meter-card.gray { background: linear-gradient(135deg, #90A4AE, #607D8B); }
+    .meter-card h3 { margin: 0 0 8px; font-size: 16px; }
+    .meter-card .ip { font-size: 11px; opacity: 0.9; margin-bottom: 10px; }
+    .meter-card .metric { font-size: 12px; margin: 4px 0; }
+    .meter-card .badge {
+      display: inline-block;
+      font-size: 10px;
+      background: rgba(0,0,0,0.2);
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-top: 8px;
+    }
+    .loading { text-align: center; color: #777; padding: 40px; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>⚡ Medidores de Energia</h1>
+    <div class="header-links">
+      <a href="/">← Nobreaks</a>
+      <a href="/logs">📋 Logs</a>
+    </div>
+  </div>
+  <div class="container">
+    <p class="hint">Atualização automática a cada 5 segundos. Medições gravadas no SQLite (tabelas <strong>medidores</strong> e <strong>medicoes</strong>).</p>
+    <div id="dashboard" class="dashboard-grid">
+      <p class="loading">Carregando medições...</p>
+    </div>
+  </div>
+  <script src="/static/medidores.js"></script>
+</body>
+</html>

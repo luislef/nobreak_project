@@ -1,0 +1,206 @@
+function getData() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+	  if (this.readyState == 4 && this.status == 200) {
+		var myArr = JSON.parse(this.responseText);
+		setValueInner(myArr);
+	  }
+  };
+  xhttp.open("GET", "/Data", true);
+  xhttp.send();
+}
+
+function showSnackbar() {
+	var x = document.getElementById("snackbar");
+	x.className = "show";
+	setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+  }
+
+function basename(path) {
+	return path.split('/').reverse()[0];
+ }
+
+function setPages(){
+	console.log(window.location.href);
+	console.log(basename(window.location.href));
+
+	var namefile = basename(window.location.href);
+
+	var wrapper = 	'<div id="menu-wrapper">' +
+						'<div id="menu" class="container">' +
+							'<ul id = "pages">' +
+								'<li id="inicio"><a href="/">inicio</a></li> ' +
+								'<li id="medicoes"><a href="/medicoes">MEDIÇÕES</a></li>' +
+								'<li id="harmonicos"><a href="/harmonicos">HARMÔNICOS</a></li>' +
+								'<li id="graficos"><a href="/graficos">GRÁFICOS</a></li>' +
+								'<li id="configuracoes"><a href="/wifi">CONFIGURAÇÕES</a></li>' +
+							'</ul>' +
+						'</div>' +
+					'</div>' +
+					'<div id="submenu-wrapper" hidden>' +
+						'<div id="submenu" class="container">' +
+							'<ul id = "pages">' +
+								'<li id="wifi"><a href="/wifi">WI-FI</a></li>' +
+								'<li id="calibracao"><a href="/calibracao">CALIBRAÇÃO</a></li>' +
+								'<li id="ajustetc"><a href="/ajustetc">AJUSTE DO TC</a></li>'	+
+								'<li id="mqtt"><a href="/mqtt">PLATAFORMA</a></li>' +
+							'</ul>' +
+						'</div>' +
+					'</div>' +
+							'<!-- end #menu --> ' +
+						'<div id="header-wrapper">' +
+							'<div id="header" class="container">' +
+								'<div id="logo">' +
+									'<h1 id="demo"><a href="#">MI ENERGY</a></h1>' +
+									'<p>Medição de Energia Inteligente</p>' +
+								'</div>' +
+							'</div>' +
+						'</div>';
+
+	
+	if(document.getElementById('wrapper')) document.getElementById('wrapper').innerHTML = wrapper;
+	
+
+	if(namefile == "") {
+		document.getElementById("inicio").classList.add("current_pageItem");
+		
+	}
+	if(namefile == "medicoes"){
+		document.getElementById("medicoes").classList.add("current_pageItem");
+	} 
+	if(namefile == "harmonicos"){
+		document.getElementById("harmonicos").classList.add("current_pageItem");
+	} 
+	if(namefile == "graficos"){
+		document.getElementById("graficos").classList.add("current_pageItem");
+	} 
+
+
+	if(namefile == "wifi") {
+		
+		document.getElementById("submenu-wrapper").style.display = "block";
+		document.getElementById("configuracoes").classList.add("current_page_config");
+		document.getElementById("wifi").classList.add("current_pageItem");
+		document.getElementsByClassName("current_page_config")[0].style.backgroundColor = "#1987d1";
+		}
+
+	if(namefile == "mqtt") {
+		document.getElementById("submenu-wrapper").style.display = "block";
+		document.getElementById("configuracoes").classList.add("current_page_config");
+		document.getElementById("mqtt").classList.add("current_pageItem");
+		document.getElementsByClassName("current_page_config")[0].style.backgroundColor = "#1987d1";
+	}
+
+	if(namefile == "calibracao") {
+		document.getElementById("submenu-wrapper").style.display = "block";
+		document.getElementById("configuracoes").classList.add("current_page_config");
+		document.getElementById("calibracao").classList.add("current_pageItem");
+		document.getElementsByClassName("current_page_config")[0].style.backgroundColor = "#1987d1";
+	}
+	if(namefile == "ajustetc") {
+		document.getElementById("submenu-wrapper").style.display = "block";
+		document.getElementById("configuracoes").classList.add("current_page_config");
+		document.getElementById("ajustetc").classList.add("current_pageItem");
+		document.getElementsByClassName("current_page_config")[0].style.backgroundColor = "#1987d1";
+	}
+	
+	document.getElementsByClassName("current_pageItem")[0].style.backgroundColor = "#45a2e9";
+	
+}
+
+function setValueInner(arr) {
+    if(document.getElementById("v_a")) document.getElementById("v_a").innerHTML = arr.v_a;
+	if(document.getElementById("v_b")) document.getElementById("v_b").innerHTML = arr.v_b;
+	if(document.getElementById("v_c")) document.getElementById("v_c").innerHTML = arr.v_c;
+	
+	if(document.getElementById("i_a")) document.getElementById("i_a").innerHTML = arr.i_a;
+	if(document.getElementById("i_b")) document.getElementById("i_b").innerHTML = arr.i_b;
+	if(document.getElementById("i_c")) document.getElementById("i_c").innerHTML = arr.i_c;
+	if(document.getElementById("i_n1")) document.getElementById("i_n1").innerHTML = arr.i_n1;
+	//document.getElementById("i_n0").innerHTML = arr.i_n0;
+	
+	if(document.getElementById("energia_ativa_a")) document.getElementById("energia_ativa_a").innerHTML = arr.energia_ativa_a;
+	if(document.getElementById("energia_ativa_b")) document.getElementById("energia_ativa_b").innerHTML = arr.energia_ativa_b;
+	if(document.getElementById("energia_ativa_c")) document.getElementById("energia_ativa_c").innerHTML = arr.energia_ativa_c;
+	if(document.getElementById("energia_ativa_total")) document.getElementById("energia_ativa_total").innerHTML = arr.energia_ativa_total;
+
+	if(document.getElementById("energia_ativa_fornecida_a")) document.getElementById("energia_ativa_fornecida_a").innerHTML = arr.energia_ativa_fornecida_a;
+	if(document.getElementById("energia_ativa_fornecida_b")) document.getElementById("energia_ativa_fornecida_b").innerHTML = arr.energia_ativa_fornecida_b;
+	if(document.getElementById("energia_ativa_fornecida_c")) document.getElementById("energia_ativa_fornecida_c").innerHTML = arr.energia_ativa_fornecida_c;
+	if(document.getElementById("energia_ativa_fornecida_total")) document.getElementById("energia_ativa_fornecida_total").innerHTML = arr.energia_ativa_fornecida_total;
+
+	if(document.getElementById("saldo_energia_ativa_a")) document.getElementById("saldo_energia_ativa_a").innerHTML = arr.saldo_energia_ativa_a;
+	if(document.getElementById("saldo_energia_ativa_b")) document.getElementById("saldo_energia_ativa_b").innerHTML = arr.saldo_energia_ativa_b;
+	if(document.getElementById("saldo_energia_ativa_c")) document.getElementById("saldo_energia_ativa_c").innerHTML = arr.saldo_energia_ativa_c;
+	if(document.getElementById("saldo_energia_ativa_total")) document.getElementById("saldo_energia_ativa_total").innerHTML = arr.saldo_energia_ativa_total;
+
+	if(document.getElementById("energia_reativa_a")) document.getElementById("energia_reativa_a").innerHTML = arr.energia_reativa_a;
+	if(document.getElementById("energia_reativa_b")) document.getElementById("energia_reativa_b").innerHTML = arr.energia_reativa_b;
+	if(document.getElementById("energia_reativa_c")) document.getElementById("energia_reativa_c").innerHTML = arr.energia_reativa_c;
+	if(document.getElementById("energia_reativa_total")) document.getElementById("energia_reativa_total").innerHTML = arr.energia_reativa_total;
+
+	if(document.getElementById("energia_reativa_fornecida_a")) document.getElementById("energia_reativa_fornecida_a").innerHTML = arr.energia_reativa_fornecida_a;
+	if(document.getElementById("energia_reativa_fornecida_b")) document.getElementById("energia_reativa_fornecida_b").innerHTML = arr.energia_reativa_fornecida_b;
+	if(document.getElementById("energia_reativa_fornecida_c")) document.getElementById("energia_reativa_fornecida_c").innerHTML = arr.energia_reativa_fornecida_c;
+	if(document.getElementById("energia_reativa_fornecida_total")) document.getElementById("energia_reativa_fornecida_total").innerHTML = arr.energia_reativa_fornecida_total;
+
+	if(document.getElementById("saldo_energia_reativa_a")) document.getElementById("saldo_energia_reativa_a").innerHTML = arr.saldo_energia_reativa_a;
+	if(document.getElementById("saldo_energia_reativa_b")) document.getElementById("saldo_energia_reativa_b").innerHTML = arr.saldo_energia_reativa_b;
+	if(document.getElementById("saldo_energia_reativa_c")) document.getElementById("saldo_energia_reativa_c").innerHTML = arr.saldo_energia_reativa_c;
+	if(document.getElementById("saldo_energia_reativa_total")) document.getElementById("saldo_energia_reativa_total").innerHTML = arr.saldo_energia_reativa_total;
+
+	if(document.getElementById("energia_aparente_a")) document.getElementById("energia_aparente_a").innerHTML = arr.energia_aparente_a;
+	if(document.getElementById("energia_aparente_b")) document.getElementById("energia_aparente_b").innerHTML = arr.energia_aparente_b;
+	if(document.getElementById("energia_aparente_c")) document.getElementById("energia_aparente_c").innerHTML = arr.energia_aparente_c;
+	if(document.getElementById("energia_aparente_total")) document.getElementById("energia_aparente_total").innerHTML = arr.energia_aparente_total;
+
+	if(document.getElementById("fp_a")) document.getElementById("fp_a").innerHTML = arr.fp_a;
+	if(document.getElementById("fp_b")) document.getElementById("fp_b").innerHTML = arr.fp_b;
+	if(document.getElementById("fp_c")) document.getElementById("fp_c").innerHTML = arr.fp_c;
+	if(document.getElementById("fp_total")) document.getElementById("fp_total").innerHTML = arr.fp_total;
+
+	if(document.getElementById("p_a")) document.getElementById("p_a").innerHTML = arr.p_a;
+	if(document.getElementById("p_b")) document.getElementById("p_b").innerHTML = arr.p_b;
+	if(document.getElementById("p_c")) document.getElementById("p_c").innerHTML = arr.p_c;
+	if(document.getElementById("p_total")) document.getElementById("p_total").innerHTML = arr.p_total;
+
+	if(document.getElementById("q_a")) document.getElementById("q_a").innerHTML = arr.q_a;
+	if(document.getElementById("q_b")) document.getElementById("q_b").innerHTML = arr.q_b;
+	if(document.getElementById("q_c")) document.getElementById("q_c").innerHTML = arr.q_c;
+	if(document.getElementById("q_total")) document.getElementById("q_total").innerHTML = arr.q_total;
+
+	if(document.getElementById("s_a")) document.getElementById("s_a").innerHTML = arr.s_a;
+	if(document.getElementById("s_b")) document.getElementById("s_b").innerHTML = arr.s_b;
+	if(document.getElementById("s_c")) document.getElementById("s_c").innerHTML = arr.s_c;
+	if(document.getElementById("s_total")) document.getElementById("s_total").innerHTML = arr.s_total;
+
+	if(document.getElementById("p_a2")) document.getElementById("p_a2").innerHTML = arr.p_a2;
+	if(document.getElementById("p_b2")) document.getElementById("p_b2").innerHTML = arr.p_b2;
+	if(document.getElementById("p_c2")) document.getElementById("p_c2").innerHTML = arr.p_c2;
+	if(document.getElementById("p_total2")) document.getElementById("p_total2").innerHTML = arr.p_total2;
+
+	if(document.getElementById("q_a2")) document.getElementById("q_a2").innerHTML = arr.q_a2;
+	if(document.getElementById("q_b2")) document.getElementById("q_b2").innerHTML = arr.q_b2;
+	if(document.getElementById("q_c2")) document.getElementById("q_c2").innerHTML = arr.q_c2;
+	if(document.getElementById("q_total2")) document.getElementById("q_total2").innerHTML = arr.q_total2;
+
+	if(document.getElementById("s_a2")) document.getElementById("s_a2").innerHTML = arr.s_a2;
+	if(document.getElementById("s_b2")) document.getElementById("s_b2").innerHTML = arr.s_b2;
+	if(document.getElementById("s_c2")) document.getElementById("s_c2").innerHTML = arr.s_c2;
+	if(document.getElementById("s_total2")) document.getElementById("s_total2").innerHTML = arr.s_total2;
+
+	if(document.getElementById("frequencia_a")) document.getElementById("frequencia_a").innerHTML = arr.frequencia;
+	if(document.getElementById("frequencia_b")) document.getElementById("frequencia_b").innerHTML = arr.frequencia;
+	if(document.getElementById("frequencia_c")) document.getElementById("frequencia_c").innerHTML = arr.frequencia;
+	if(document.getElementById("frequencia_n")) document.getElementById("frequencia_n").innerHTML = arr.frequencia;
+
+	if(document.getElementById("angulo_carga_a")) document.getElementById("angulo_carga_a").innerHTML = arr.angulo_carga_a;
+	if(document.getElementById("angulo_carga_b")) document.getElementById("angulo_carga_b").innerHTML = arr.angulo_carga_b;
+	if(document.getElementById("angulo_carga_c")) document.getElementById("angulo_carga_c").innerHTML = arr.angulo_carga_c;
+
+	if(document.getElementById("angulo_vava")) document.getElementById("angulo_vava").innerHTML = arr.angulo_vava;
+	if(document.getElementById("angulo_vbva")) document.getElementById("angulo_vbva").innerHTML = arr.angulo_vbva;
+	if(document.getElementById("angulo_vcva")) document.getElementById("angulo_vcva").innerHTML = arr.angulo_vcva;
+}
+
+

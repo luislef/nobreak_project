@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UPS Details</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #e9ecef;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    h1 {
+      color: #4CAF50;
+      margin: 20px 0;
+      text-align: center;
+    }
+    .details-box {
+      width: 90%;
+      max-width: 800px;
+      background-color: #ffffff;
+      padding: 20px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+    .label {
+      font-weight: bold;
+      color: #4CAF50;
+      margin: 15px 0 10px;
+      font-size: 1.1em;
+      border-bottom: 2px solid #4CAF50;
+      padding-bottom: 5px;
+    }
+    p {
+      margin: 5px 0;
+      color: #333;
+      line-height: 1.5;
+    }
+    .highlight {
+      font-weight: bold;
+      color: #333;
+    }
+    .config-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .config-item {
+      background-color: #f8f9fa;
+      padding: 10px;
+      border-radius: 5px;
+      border-left: 3px solid #4CAF50;
+    }
+    .config-item .config-label {
+      font-weight: bold;
+      color: #555;
+      font-size: 0.9em;
+    }
+    .config-item .config-value {
+      color: #333;
+      font-size: 1.1em;
+      margin-top: 3px;
+    }
+    @media (max-width: 600px) {
+      .config-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>UPS Details for IP: {{ ip }}</h1>
+
+  <div class="details-box">
+    <div class="label">Input Information</div>
+    <p><span class="highlight">Input Voltage:</span> {{ data['inputInfo']['inputVoltage'] | default('N/A') }}</p>
+    <p><span class="highlight">Input Frequency:</span> {{ data['inputInfo']['inputFrequency'] | default('N/A') }}</p>
+    <p><span class="highlight">Input Phase:</span> {{ data['inputInfo']['inputPhase'] | default('N/A') }}</p>
+
+    <div class="label">Output Information</div>
+    <p><span class="highlight">Output Voltage:</span> {{ data['outputInfo']['Tensão'] | default('N/A') }}</p>
+    <p><span class="highlight">Output Frequency:</span> {{ data['outputInfo']['Frequência'] | default('N/A') }}</p>
+    <p><span class="highlight">Current:</span> {{ data['outputInfo']['Corrente'] | default('N/A') }}</p>
+    <p><span class="highlight">Active Power:</span> {{ data['outputInfo']['Potência ativa'] | default('N/A') }}</p>
+    <p><span class="highlight">Apparent Power:</span> {{ data['outputInfo']['Potência aparente'] | default('N/A') }}</p>
+    <p><span class="highlight">Load:</span> {{ data['outputInfo']['Carga'] | default('N/A') }}</p>
+    <p><span class="highlight">Power Factor:</span> {{ data['outputInfo']['FP da Carga'] | default('N/A') }}</p>
+
+    <div class="label">Additional Information</div>
+    <p><span class="highlight">Temperature:</span> {{ data['otherInfo']['temperature'] | default('N/A') }}</p>
+    <p><span class="highlight">Battery Level:</span> {{ data['otherInfo']['percentualCarga'] | default('N/A') }}</p>
+
+    <div class="label">Configurações de UPS</div>
+    <div class="config-grid">
+      <div class="config-item">
+        <div class="config-label">Executar teste de bateria</div>
+        <div class="config-value">{{ config['testeBateria'] | default('N/A') }}</div>
+      </div>
+      <div class="config-item">
+        <div class="config-label">Hora (COM_EVENT)</div>
+        <div class="config-value">{{ config['hora'] | default('N/A') }}h {{ config['minuto'] | default('N/A') }}min {{ config['segundo'] | default('N/A') }}seg</div>
+      </div>
+      <div class="config-item">
+        <div class="config-label">Data (COM_EVENT)</div>
+        <div class="config-value">{{ config['dia'] | default('N/A') }}/{{ config['mes'] | default('N/A') }}/{{ config['ano'] | default('N/A') }}</div>
+      </div>
+      <div class="config-item">
+        <div class="config-label">Tensão de saída (Volts)</div>
+        <div class="config-value">{{ config['tensaoSaida'] | default('N/A') }} V</div>
+      </div>
+      <div class="config-item">
+        <div class="config-label">Frequência de saída (Hertz)</div>
+        <div class="config-value">{{ config['frequenciaSaida'] | default('N/A') }} Hz</div>
+      </div>
+      <div class="config-item">
+        <div class="config-label">Buzzer</div>
+        <div class="config-value">{{ config['buzzer'] | default('N/A') }}</div>
+      </div>
+      <div class="config-item">
+        <div class="config-label">Subtensão (Volts)</div>
+        <div class="config-value">{{ config['subtensao'] | default('N/A') }} V</div>
+      </div>
+      <div class="config-item">
+        <div class="config-label">Sobretensão (Volts)</div>
+        <div class="config-value">{{ config['sobretensao'] | default('N/A') }} V</div>
+      </div>
+      <div class="config-item">
+        <div class="config-label">Data de instalação da bateria</div>
+        <div class="config-value">{{ config['bateriaDia'] | default('N/A') }}/{{ config['bateriaMes'] | default('N/A') }}/{{ config['bateriaAno'] | default('N/A') }}</div>
+      </div>
+      <div class="config-item">
+        <div class="config-label">Tempo de vida da bateria (dias)</div>
+        <div class="config-value">{{ config['vidaBateria'] | default('N/A') }} dias</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
